@@ -1,6 +1,6 @@
 fun main() {
     data class Round(val r: Int, val g: Int, val b: Int) {
-        fun possible(target: Round) =
+        fun isPossible(target: Round) =
             (r <= target.r && g <= target.g && b <= target.b)
     }
 
@@ -9,8 +9,7 @@ fun main() {
     fun parse(str: String): Game {
         val (gameStr, roundsStr) = str.split(": ")
         val gameId = gameStr.replace("Game ", "").toInt()
-        val rawRounds = roundsStr.split("; ")
-        val rounds = rawRounds.map { roundStr ->
+        val rounds = roundsStr.split("; ").map { roundStr ->
             var (r, g, b) = Triple(0, 0,0)
             roundStr.split(", ").forEach {
                 when {
@@ -29,7 +28,7 @@ fun main() {
     fun part1(input: List<String>): Int {
         return input.sumOf { str ->
             val game = parse(str)
-            if (game.rounds.all { it.possible(target) }) game.id else 0
+            if (game.rounds.all { it.isPossible(target) }) game.id else 0
         }
     }
 
