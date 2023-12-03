@@ -21,8 +21,7 @@ fun main() {
         val right = (pos + 1).coerceAtMost(row.length - 1)
 
         for (idx in left..right) {
-            val symb = row[idx]
-            if (symb.isDigit()) {
+            if (row[idx].isDigit()) {
                 val (num, indexes) = expandToNumber(idx, row)
                 nums.add(num)
 
