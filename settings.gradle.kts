@@ -1,4 +1,4 @@
-rootProject.name = "aoc-kotlin-2023"
+rootProject.name = "aoc-2023-in-kotlin"
 
 dependencyResolutionManagement {
     repositories {
