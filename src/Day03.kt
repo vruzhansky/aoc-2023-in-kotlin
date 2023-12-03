@@ -5,14 +5,14 @@ fun main() {
     fun Char.isPart() = !(isDigit() || '.' == this)
     fun Char.isGear() = '*' == this
 
-    fun expandToNumber(pos: Int, row: String): Pair<Int, Pair<Int, Int>> {
-        var startIdx = pos
-        var endIdx = pos
-        while (startIdx > 0 && endIdx < row.length - 1 && (row[startIdx - 1].isDigit() || row[endIdx + 1].isDigit())) {
-            if (row[startIdx - 1].isDigit()) startIdx--
-            if (row[endIdx + 1].isDigit()) endIdx++
+    fun expandToNumber(pos: Int, row: String): Pair<Int, Int> {
+        var left = pos
+        var right = pos
+        while (left > 0 && right < row.length - 1 && (row[left - 1].isDigit() || row[right + 1].isDigit())) {
+            if (row[left - 1].isDigit()) left--
+            if (row[right + 1].isDigit()) right++
         }
-        return row.substring(startIdx..endIdx).toInt() to Pair(startIdx, endIdx)
+        return row.substring(left..right).toInt() to right
     }
 
     fun adjacentNums(pos: Int, row: String): List<Int> {
@@ -22,11 +22,10 @@ fun main() {
 
         for (idx in left..right) {
             if (row[idx].isDigit()) {
-                val (num, indexes) = expandToNumber(idx, row)
+                val (num, end) = expandToNumber(idx, row)
                 nums.add(num)
 
-                val (_, endIdx) = indexes
-                if (endIdx > idx) break
+                if (end > idx) break
             }
         }
         return nums
