@@ -1,3 +1,5 @@
+private const val DAY = "03"
+
 fun main() {
 
     fun Char.isPart() = !(isDigit() || '.' == this)
@@ -62,11 +64,11 @@ fun main() {
     }
 
     // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day03_test")
+    val testInput = readInput("Day${DAY}_test")
     check(part1(testInput) == 4361)
     check(part2(testInput) == 467835)
 
-    val input = readInput("Day03")
+    val input = readInput("Day$DAY")
     part1(input).println()
     part2(input).println()
 }

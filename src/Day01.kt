@@ -1,3 +1,5 @@
+private const val DAY = "01"
+
 fun main() {
     fun part1(input: List<String>): Int {
         return input.sumOf { str ->
@@ -18,11 +20,11 @@ fun main() {
     }
 
     // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day01_test")
+    val testInput = readInput("Day${DAY}_test")
     check(part1(testInput) == 11)
     check(part2(testInput) == 91)
 
-    val input = readInput("Day01")
+    val input = readInput("Day$DAY")
     part1(input).println()
     part2(input).println()
 }

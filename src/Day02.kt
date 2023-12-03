@@ -1,3 +1,5 @@
+private const val DAY = "02"
+
 fun main() {
     data class Round(val r: Int, val g: Int, val b: Int) {
         fun isPossible(target: Round) =
@@ -41,11 +43,11 @@ fun main() {
     }
 
     // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day02_test")
+    val testInput = readInput("Day${DAY}_test")
     check(part1(testInput) == 8)
     check(part2(testInput) == 2286)
 
-    val input = readInput("Day02")
+    val input = readInput("Day$DAY")
     part1(input).println()
     part2(input).println()
 }
