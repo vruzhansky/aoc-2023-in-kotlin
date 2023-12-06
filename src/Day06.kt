@@ -1,3 +1,5 @@
+import kotlin.math.*
+
 private const val DAY = "06"
 
 fun main() {
@@ -12,11 +14,19 @@ fun main() {
         for (race in races) {
             val (time, distance) = race
 
-            var ways = 0
-            for (i in (1..<time)) {
-                if ((time - i) * i > distance) ways++
+//            var ways = 0
+//            for (i in (1..<time)) {
+//                if ((time - i) * i > distance) ways++
+//            }
+            val d = time * time - 4 * distance
+
+            if (d > 0) {
+                val sq = sqrt(d.toDouble())
+                val x1 = (time - sq) / 2
+                val x2 = (time + sq) / 2
+                res *= (ceil(x2) - floor(x1)).toInt() - 1
             }
-            res *= ways
+//            res *= ways
         }
         return res
     }
@@ -25,17 +35,25 @@ fun main() {
         val time = input[0].substringAfter(":").replace(" ", "").toLong()
         val distance = input[1].substringAfter(":").replace(" ", "").toLong()
 
-        var ways = 0L
-        for (i in (1..<time)) {
-            if ((time - i) * i > distance) ways++
-        }
-        return ways
+//        var ways = 0L
+//        for (i in (1..<time)) {
+//            if ((time - i) * i > distance) ways++
+//        }
+
+        val d = time * time - 4 * distance
+
+        if (d <= 0) return 0
+
+        val sq = sqrt(d.toDouble())
+        val x1 = (time - sq) / 2
+        val x2 = (time + sq) / 2
+        return (ceil(x2) - floor(x1)).toLong() - 1
     }
 
     // test if implementation meets criteria from the description, like:
     val testInput = readInput("Day${DAY}_test")
     check(part1(testInput).also { println(it) } == 288)
-    part2(testInput).also { check(it == 71503L) }.println()
+    check(part2(testInput).also { println(it) } == 71503L)
 
     val input = readInput("Day$DAY")
     check(part1(input).also { println(it) } == 500346)
