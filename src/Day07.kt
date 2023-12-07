@@ -1,21 +1,23 @@
 private const val DAY = "07"
 
+private const val JOKER = 'J'
+
 fun main() {
     fun cardRanks(cards: List<Char>) = cards.mapIndexed { index, c -> c to cards.size - index }.toMap()
 
-    val cardRanks = cardRanks(listOf('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2'))
-    val cardRanks2 = cardRanks(listOf('A', 'K', 'Q', 'T', '9', '8', '7', '6', '5', '4', '3', '2', 'J'))
+    val cardRanks = cardRanks(listOf('A', 'K', 'Q', JOKER, 'T', '9', '8', '7', '6', '5', '4', '3', '2'))
+    val cardRanks2 = cardRanks(listOf('A', 'K', 'Q', 'T', '9', '8', '7', '6', '5', '4', '3', '2', JOKER))
 
     data class Hand(val value: String, val rank: Int)
 
     fun handWithCounts(value: String, withJokers: Boolean): Map<Char, Int> {
-        val jokers = value.count { it == 'J' }
+        val jokers = value.count { it == JOKER }
         return if (!withJokers || jokers == 0) {
             value.groupingBy { it }.eachCount()
         } else {
-            val eachCount = value.filter { it != 'J' }.groupingBy { it }.eachCount()
+            val eachCount = value.filter { it != JOKER }.groupingBy { it }.eachCount()
             if (eachCount.isEmpty()) {
-                mapOf('J' to 5)
+                mapOf(JOKER to 5)
             } else {
                 val maxCard = eachCount.maxBy { it.value }.key
                 eachCount.mapValues { if (it.key == maxCard) it.value + jokers else it.value }
