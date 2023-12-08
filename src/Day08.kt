@@ -14,9 +14,9 @@ fun main() {
         return Nav(instr, nodes)
     }
 
-    fun steps(nav: Nav, from: String, toPredicate: (String) -> Boolean): Int {
+    fun steps(nav: Nav, from: String, toPredicate: (String) -> Boolean): Long {
         val (instr, nodes) = nav
-        var steps = 0
+        var steps = 0L
         var nextInstrIdx = 0
         var cur = from
 
@@ -41,7 +41,7 @@ fun main() {
         return n1 * n2 / gcd
     }
 
-    fun part1(input: List<String>): Int {
+    fun part1(input: List<String>): Long {
         val nav = parse(input)
 
         return steps(nav, "AAA") { it == "ZZZ" }
@@ -55,17 +55,16 @@ fun main() {
         return starts.map { start ->
             steps(nav, start) { it.endsWith("Z") }
         }
-            .map { it.toLong() }
             .reduce { acc, i -> lcm(acc, i) }
     }
 
     // test if implementation meets criteria from the description, like:
     val testInput = readInput("Day${DAY}_test")
     val testInput2 = readInput("Day${DAY}_2_test")
-    check(part1(testInput).also { println(it) } == 2)
+    check(part1(testInput).also { println(it) } == 2L)
     check(part2(testInput2).also { println(it) } == 6L)
 
     val input = readInput("Day$DAY")
-    check(part1(input).also { println(it) } == 20569)
+    check(part1(input).also { println(it) } == 20569L)
     check(part2(input).also { println(it) } == 21366921060721L)
 }
