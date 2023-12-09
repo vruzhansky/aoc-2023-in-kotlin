@@ -3,10 +3,10 @@ private const val DAY = "09"
 
 fun main() {
 
-    fun toSeqs(list: List<Int>): List<List<Int>> {
-        val res = mutableListOf(list)
+    fun toSeqs(list: List<Int>, selector: (List<Int>) -> Int): List<Int> {
+        val res = mutableListOf(selector(list))
 
-        var prev = list.first
+        var prev = list.first()
         var nextList = list.drop(1)
 
         while (nextList.any { it != 0 }) {
@@ -15,8 +15,8 @@ fun main() {
                 prev = it
                 next
             }
-            prev = diffsList.first
-            res.add(diffsList)
+            prev = diffsList.first()
+            res.add(selector(diffsList))
             nextList = diffsList.drop(1)
         }
         return res
@@ -33,7 +33,7 @@ fun main() {
         val lists = parse(input)
 
         return lists.sumOf { list ->
-            toSeqs(list).sumOf { it.last }
+            toSeqs(list) { it.last() }.sum()
         }
     }
 
@@ -41,7 +41,7 @@ fun main() {
         val lists = parse(input)
 
         return lists.sumOf { list ->
-            toSeqs(list).reversed().map { it.first }.reduce { acc, i -> i - acc }
+            toSeqs(list) { it.first() }.reversed().reduce { acc, i -> i - acc }
         }
     }
 
