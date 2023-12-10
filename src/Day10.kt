@@ -77,14 +77,30 @@ fun main() {
     //       '...'
     fun zoom(input: List<String>, visited: Set<Point>): MutableList<MutableList<Char>> {
         val pipesMap: Map<Char, List<String>> = mapOf(
-            '.' to listOf("...", "...", "..."),
-            'S' to listOf(".#.", "###", ".#."),
-            '|' to listOf(".#.", ".#.", ".#."),
-            '-' to listOf("...", "###", "..."),
-            'L' to listOf(".#.", ".##", "..."),
-            'J' to listOf(".#.", "##.", "..."),
-            'F' to listOf("...", ".##", ".#."),
-            '7' to listOf("...", "##.", ".#."),
+            '.' to listOf("...",
+                          "...",
+                          "..."),
+            'S' to listOf(".#.",
+                          "###",
+                          ".#."),
+            '|' to listOf(".#.",
+                          ".#.",
+                          ".#."),
+            '-' to listOf("...",
+                          "###",
+                          "..."),
+            'L' to listOf(".#.",
+                          ".##",
+                          "..."),
+            'J' to listOf(".#.",
+                          "##.",
+                          "..."),
+            'F' to listOf("...",
+                          ".##",
+                          ".#."),
+            '7' to listOf("...",
+                          "##.",
+                          ".#."),
         )
 
         val res = mutableListOf<MutableList<Char>>()
