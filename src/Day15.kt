@@ -1,4 +1,4 @@
-import java.util.LinkedList
+import java.util.*
 
 private const val DAY = "15"
 
@@ -16,10 +16,11 @@ fun main() {
 
     data class Lens(val label: String, val focalLength: Int)
     class Box(val id: Int) {
-        private val lenses = mutableSetOf<String>()
+        private val labels = mutableSetOf<String>()
         private val dequeue = LinkedList<Lens>()
+
         fun add(lens: Lens) {
-            if (lenses.contains(lens.label)) {
+            if (labels.contains(lens.label)) {
                 var idx = 0
                 while (idx < dequeue.size) {
                     val el = dequeue.poll()
@@ -27,14 +28,14 @@ fun main() {
                     idx++
                 }
             } else {
-                lenses.add(lens.label)
+                labels.add(lens.label)
                 dequeue.offer(lens)
             }
         }
 
         fun remove(label: String) {
-            if (lenses.contains(label)) {
-                lenses.remove(label)
+            if (labels.contains(label)) {
+                labels.remove(label)
                 var idx = 0
                 while (idx <= dequeue.size) {
                     val el = dequeue.poll()
@@ -44,16 +45,8 @@ fun main() {
             }
         }
 
-        fun power(): Int {
-            var res = 0
-            var idx = 1
-            while (dequeue.isNotEmpty()) {
-                val lens = dequeue.poll()
-                res += (id + 1) * lens.focalLength * idx
-                idx++
-            }
-            return res
-        }
+        fun power(): Int =
+            dequeue.foldIndexed(0) { index, acc, lens -> acc + (id + 1) * lens.focalLength * (index + 1) }
     }
 
     fun part2(input: List<String>): Int {
