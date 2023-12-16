@@ -1,5 +1,3 @@
-import java.util.*
-
 private const val DAY = "15"
 
 fun main() {
@@ -9,44 +7,23 @@ fun main() {
     fun hash(string: String): Int = string.fold(0) { acc, c -> (acc + c.code) * 17 % 256 }
 
     fun part1(input: List<String>): Int {
-        val strings = parse(input)
-
-        return strings.sumOf { hash(it) }
+        return parse(input).sumOf { hash(it) }
     }
 
     data class Lens(val label: String, val focalLength: Int)
     class Box(val id: Int) {
-        private val labels = mutableSetOf<String>()
-        private val dequeue = LinkedList<Lens>()
+        private val lenses = mutableMapOf<String, Lens>()
 
         fun add(lens: Lens) {
-            if (labels.contains(lens.label)) {
-                var idx = 0
-                while (idx < dequeue.size) {
-                    val el = dequeue.poll()
-                    dequeue.offer(if (el.label == lens.label) lens else el)
-                    idx++
-                }
-            } else {
-                labels.add(lens.label)
-                dequeue.offer(lens)
-            }
+            lenses[lens.label] = lens
         }
 
         fun remove(label: String) {
-            if (labels.contains(label)) {
-                labels.remove(label)
-                var idx = 0
-                while (idx <= dequeue.size) {
-                    val el = dequeue.poll()
-                    if (el.label != label) dequeue.offer(el)
-                    idx++
-                }
-            }
+            lenses.remove(label)
         }
 
         fun power(): Int =
-            dequeue.foldIndexed(0) { index, acc, lens -> acc + (id + 1) * lens.focalLength * (index + 1) }
+            lenses.values.foldIndexed(0) { index, acc, lens -> acc + (id + 1) * lens.focalLength * (index + 1) }
     }
 
     fun part2(input: List<String>): Int {
