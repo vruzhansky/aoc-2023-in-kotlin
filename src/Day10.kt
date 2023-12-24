@@ -1,9 +1,8 @@
-import java.util.Deque
-import java.util.LinkedList
+import java.util.*
 
 private const val DAY = "10"
 
-enum class Direction { NORTH, EAST, SOUTH, WEST }
+enum class GeoDirection { NORTH, EAST, SOUTH, WEST }
 
 fun main() {
     data class Point(val r: Int, val c: Int) {
@@ -19,13 +18,13 @@ fun main() {
             }.find { it != prev } ?: throw IllegalStateException("Dead end!")
         }
 
-        fun neighbors(maxRows: Int, maxCols: Int): Map<Direction, Point> {
+        fun neighbors(maxRows: Int, maxCols: Int): Map<GeoDirection, Point> {
             val rows = listOf(-1, 0, 1, 0)
             val cols = listOf(0, 1, 0, -1)
-            val res = mutableMapOf<Direction, Point>()
+            val res = mutableMapOf<GeoDirection, Point>()
             repeat(4) {
                 val point = copy(r = r + rows[it], c = c + cols[it])
-                if (point.r in 0..<maxRows && point.c in 0..<maxCols) res[Direction.entries[it]] = point
+                if (point.r in 0..<maxRows && point.c in 0..<maxCols) res[GeoDirection.entries[it]] = point
             }
             return res
         }
@@ -46,10 +45,10 @@ fun main() {
             val (direction, point) = neighbor
             val char = input[point.r][point.c]
             when {
-                direction == Direction.NORTH && char in "|F7" -> return point
-                direction == Direction.EAST && char in "-J7" -> return point
-                direction == Direction.SOUTH && char in "|LJ" -> return point
-                direction == Direction.WEST && char in "-FL" -> return point
+                direction == GeoDirection.NORTH && char in "|F7" -> return point
+                direction == GeoDirection.EAST && char in "-J7" -> return point
+                direction == GeoDirection.SOUTH && char in "|LJ" -> return point
+                direction == GeoDirection.WEST && char in "-FL" -> return point
             }
         }
         throw IllegalStateException("Orphan start!")

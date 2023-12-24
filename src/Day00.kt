@@ -1,6 +1,4 @@
-import java.util.*
-
-private const val DAY = "16"
+private const val DAY = "00"
 
 fun main() {
 
