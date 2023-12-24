@@ -24,7 +24,9 @@ fun <T> aStar(
 
     while (queue.isNotEmpty()) {
         val current = queue.poll()
-//        visited.add(current.value)
+
+        if (current.value in visited) continue
+        visited.add(current.value)
 
         if (goal(current.value)) {
             return current
@@ -32,7 +34,6 @@ fun <T> aStar(
 
         for ((next, cost) in current.value.neighboursWithCost()) {
             if (next in visited) continue
-            visited.add(next)
 
             queue.add(Node(current, next, current.cost + cost, heuristic(next)))
         }
